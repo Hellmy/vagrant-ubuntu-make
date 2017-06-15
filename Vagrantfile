@@ -23,6 +23,10 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 4200, host: 4200
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 80
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -38,6 +42,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.provision "file", source: "./.tmux.conf", destination: ".tmux.conf"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -65,10 +70,9 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
-     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
      echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
      apt-get update
-	 apt-get upgrade -y
 	 apt-get install -y ubuntu-make
 	 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
      apt-get install -y nodejs
