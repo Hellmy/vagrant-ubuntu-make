@@ -1,0 +1,7 @@
+Irgendwie muss man noch die Mongodb gestartet bekommen in Che gestartet bekommen!
+
+sudo service mongod start?
+
+Che irgendwie so konfigurieren, dass auch eine mongodb vorhanden ist??
+--> Irgendwie eigenen Stack schaffen?
+--> Was sind hier noch andere Möglichkeiten?

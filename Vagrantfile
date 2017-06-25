@@ -26,7 +26,15 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 3000, host: 3000
   config.vm.network "forwarded_port", guest: 4200, host: 4200
   config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 8081, host: 8081
   config.vm.network "forwarded_port", guest: 80, host: 80
+  # forward all eclipse-che ports!
+  #for i in 32700..65535
+  #  config.vm.network :forwarded_port, guest: i, host: i
+  #end
+  
+  # Use a private network with an IP set from the dhcp
+  config.vm.network "private_network", type: "dhcp"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -70,14 +78,23 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
+     # add yarn
      curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
      echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	 # add docker
+	 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	 sudo add-apt-repository \
+	   "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
+	   $(lsb_release -cs) \
+	   stable"
      apt-get update
 	 apt-get install -y ubuntu-make
 	 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
      apt-get install -y nodejs
 	 apt-get install -y build-essential
 	 apt-get install -y yarn
+	 apt-get install -y docker-ce
+	 sudo usermod -aG docker vagrant
 	 loadkeys de
    SHELL
 end
