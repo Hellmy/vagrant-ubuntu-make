@@ -61,7 +61,7 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-     vb.memory = "3024"
+     vb.memory = "4056"
    end
   #
   # View the documentation for the provider you are using for more
@@ -87,7 +87,9 @@ Vagrant.configure("2") do |config|
 	   "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
 	   $(lsb_release -cs) \
 	   stable"
+	 sudo apt-key fingerprint 0EBFCD88
      apt-get update
+	 apt-get upgrade -y
 	 apt-get install -y ubuntu-make
 	 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
      apt-get install -y nodejs
