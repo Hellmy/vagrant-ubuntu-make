@@ -61,7 +61,8 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-     vb.memory = "4056"
+     vb.memory = "5102"
+	 vb.cpus = "2"
    end
   #
   # View the documentation for the provider you are using for more
@@ -84,19 +85,19 @@ Vagrant.configure("2") do |config|
 	 # add docker
 	 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	 sudo add-apt-repository \
-	   "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
+	   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 	   $(lsb_release -cs) \
 	   stable"
 	 sudo apt-key fingerprint 0EBFCD88
-     apt-get update
-	 apt-get upgrade -y
-	 apt-get install -y ubuntu-make
+     sudo apt-get update
+	 sudo apt-get upgrade -y
+	 sudo apt-get install -y ubuntu-make
 	 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-     apt-get install -y nodejs
-	 apt-get install -y build-essential
-	 apt-get install -y yarn
-	 apt-get install -y docker-ce
+     sudo apt-get install -y nodejs
+	 sudo apt-get install -y build-essential
+	 sudo apt-get install -y yarn
+	 sudo apt-get install -y docker-ce
 	 sudo usermod -aG docker vagrant
-	 loadkeys de
+	 sudo loadkeys de
    SHELL
 end
