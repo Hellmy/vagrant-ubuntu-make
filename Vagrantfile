@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "boxcutter/ubuntu1604-desktop"
+  config.vm.box = "box-cutter/ubuntu1604-desktop"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -89,6 +89,9 @@ Vagrant.configure("2") do |config|
 	   $(lsb_release -cs) \
 	   stable"
 	 sudo apt-key fingerprint 0EBFCD88
+	 # add mongodb
+	 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+	 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
      sudo apt-get update
 	 sudo apt-get upgrade -y
 	 sudo apt-get install -y ubuntu-make
@@ -97,6 +100,7 @@ Vagrant.configure("2") do |config|
 	 sudo apt-get install -y build-essential
 	 sudo apt-get install -y yarn
 	 sudo apt-get install -y docker-ce
+	 sudo apt-get install -y mongodb-org
 	 sudo usermod -aG docker vagrant
 	 sudo loadkeys de
    SHELL
